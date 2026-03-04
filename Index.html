@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Management System</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1><i class="fas fa-users-cog"></i> Customer Management System</h1>
+            <p>Track customers, purchases, and remainders</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Customer Form -->
+            <section class="card customer-form-section">
+                <h2><i class="fas fa-user-plus"></i> Add New Customer</h2>
+                <form id="customerForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="customerName"><i class="fas fa-user"></i> Customer Name</label>
+                            <input type="text" id="customerName" placeholder="Enter customer name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="customerPhone"><i class="fas fa-phone"></i> Phone Number</label>
+                            <input type="tel" id="customerPhone" placeholder="Enter phone number" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="customerEmail"><i class="fas fa-envelope"></i> Email</label>
+                            <input type="email" id="customerEmail" placeholder="Enter email (optional)">
+                        </div>
+                        <div class="form-group">
+                            <label for="customerAddress"><i class="fas fa-map-marker-alt"></i> Address</label>
+                            <input type="text" id="customerAddress" placeholder="Enter address (optional)">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-plus-circle"></i> Add Customer
+                    </button>
+                </form>
+            </section>
+
+            <!-- Purchase Form -->
+            <section class="card purchase-form-section">
+                <h2><i class="fas fa-shopping-cart"></i> Add Purchase</h2>
+                <form id="purchaseForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="purchaseCustomer"><i class="fas fa-user"></i> Select Customer</label>
+                            <select id="purchaseCustomer" required>
+                                <option value="">-- Select Customer --</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="purchaseItem"><i class="fas fa-box"></i> Item Name</label>
+                            <input type="text" id="purchaseItem" placeholder="Enter item name" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="purchaseQuantity"><i class="fas fa-sort-numeric-up"></i> Quantity</label>
+                            <input type="number" id="purchaseQuantity" min="1" placeholder="Enter quantity" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="purchasePrice"><i class="fas fa-dollar-sign"></i> Unit Price</label>
+                            <input type="number" id="purchasePrice" min="0" step="0.01" placeholder="Enter price" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="purchaseDate"><i class="fas fa-calendar-alt"></i> Purchase Date</label>
+                        <input type="date" id="purchaseDate" required>
+                    </div>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-cart-plus"></i> Add Purchase
+                    </button>
+                </form>
+            </section>
+
+            <!-- Payment Form -->
+            <section class="card payment-form-section">
+                <h2><i class="fas fa-money-bill-wave"></i> Add Payment</h2>
+                <form id="paymentForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="paymentCustomer"><i class="fas fa-user"></i> Select Customer</label>
+                            <select id="paymentCustomer" required>
+                                <option value="">-- Select Customer --</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="paymentAmount"><i class="fas fa-dollar-sign"></i> Payment Amount</label>
+                            <input type="number" id="paymentAmount" min="0" step="0.01" placeholder="Enter payment amount" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="paymentDate"><i class="fas fa-calendar-alt"></i> Payment Date</label>
+                        <input type="date" id="paymentDate" required>
+                    </div>
+                    <button type="submit" class="btn btn-info">
+                        <i class="fas fa-money-check"></i> Add Payment
+                    </button>
+                </form>
+            </section>
+
+            <!-- Statistics Dashboard -->
+            <section class="card stats-section">
+                <h2><i class="fas fa-chart-bar"></i> Statistics</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <i class="fas fa-users"></i>
+                        <div class="stat-info">
+                            <h3 id="totalCustomers">0</h3>
+                            <p>Total Customers</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-shopping-bag"></i>
+                        <div class="stat-info">
+                            <h3 id="totalPurchases">0</h3>
+                            <p>Total Purchases</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-dollar-sign"></i>
+                        <div class="stat-info">
+                            <h3 id="totalRevenue">$0.00</h3>
+                            <p>Total Revenue</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <div class="stat-info">
+                            <h3 id="totalRemainder">$0.00</h3>
+                            <p>Total Remainder</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Customer Table -->
+            <section class="card table-section">
+                <h2><i class="fas fa-list"></i> Customer Records</h2>
+                <div class="table-controls">
+                    <input type="text" id="searchInput" placeholder="Search customers...">
+                    <select id="sortSelect">
+                        <option value="name">Sort by Name</option>
+                        <option value="date">Sort by Date</option>
+                        <option value="remainder">Sort by Remainder</option>
+                    </select>
+                </div>
+                <div class="table-wrapper">
+                    <table id="customerTable">
+                        <thead>
+                            <tr>
+                                <th><i class="fas fa-user"></i> Name</th>
+                                <th><i class="fas fa-phone"></i> Phone</th>
+                                <th><i class="fas fa-shopping-bag"></i> Total Purchases</th>
+                                <th><i class="fas fa-dollar-sign"></i> Total Spent</th>
+                                <th><i class="fas fa-money-bill-wave"></i> Total Paid</th>
+                                <th><i class="fas fa-exclamation-circle"></i> Remainder</th>
+                                <th><i class="fas fa-cog"></i> Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="customerTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Purchase History Modal -->
+            <div id="purchaseModal" class="modal">
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    <h2><i class="fas fa-history"></i> Purchase History</h2>
+                    <div id="purchaseHistoryContent">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>&copy; 2026 Customer Management System</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
